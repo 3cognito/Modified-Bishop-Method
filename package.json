@@ -1,0 +1,28 @@
+{
+  "name": "sbishop-fos",
+  "version": "1.0.0",
+  "description": "An implementation of the simplified bishop's method for the calculation of the factor of safety for slope stability",
+  "main": "index.js",
+  "author": "Tommy, Ubongabasi",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm run build && nodemon ./dist/index.js",
+    "start": "npm run build && node ./dist/index.js",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "clean": "rm -rf ./dist"
+  },
+  "dependencies": {
+    "@types/xlsx": "^0.0.36",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/multer": "^1.4.8",
+    "@types/node": "^20.5.7",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1"
+  }
+}
