@@ -16,7 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
-  //Get file from request and check if file is present
   const file = req.file;
   if (!file) {
     return res.status(400).json({
@@ -37,8 +36,8 @@ app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
 
   const data = (await convertToJSON(file.path)) as Slice[];
 
-  //Validate input data
-  const FOS = checkConvergence(data, 1.5, 0.01, 10000);
+  //Validate input data - Not done yet
+  const FOS = checkConvergence(data, 0, 0.0001, 10000); //Default intial guess is 0, default tolerance is 0.0001
   let determinaion = "";
   if (FOS < 1) determinaion = "Unstable";
   else determinaion = "Stable";
