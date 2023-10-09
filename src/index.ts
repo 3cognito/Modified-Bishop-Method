@@ -35,7 +35,7 @@ app.post("/api/v1/solve", upload.single("file"), async (req: Request, res: Respo
   }
 
   const data = (await convertToJSON(file.path)) as Slice[];
-  console.log(data);
+  // console.log(data);
   //Validate input data - Not done yet
   const FOS = checkConvergence(data, 0, 0.0001, 10000); //Default intial guess is 0, default tolerance is 0.0001
   console.log(FOS);

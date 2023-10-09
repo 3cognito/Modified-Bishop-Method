@@ -19,8 +19,9 @@ export function checkConvergence(
   const individualFactorsOfSafety = slices.map((slice) => {
     return calculateNextFactorOfSafetyPerSlice(slice, initialGuessFOS);
   });
-
+  console.log(individualFactorsOfSafety);
   const { topSum, bottomSum } = calculateAverage(individualFactorsOfSafety);
+  console.log(topSum, bottomSum);
   const nextFOS = topSum / bottomSum;
 
   // Convergence criteria met, return the converged FoS
