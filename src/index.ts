@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { convertToJSON } from "./utilities/parse-excel";
 import { checkConvergence } from "./sbishop";
 import dotenv from "dotenv";
@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
+app.post("/api/v1/solve", upload.single("file"), async (req: Request, res: Response) => {
   const file = req.file;
   if (!file) {
     return res.status(400).json({
@@ -44,7 +44,7 @@ app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
   res.send({ FactorOfSafety: FOS, Inference: determinaion });
 });
 
-app.get("/api/v1/download-template", (req, res, next) => {
+app.get("/api/v1/download-template", (_, res: Response) => {
   const path = "./src/template.xlsx";
 
   if (fs.existsSync(path)) {
@@ -64,6 +64,10 @@ app.get("/api/v1/download-template", (req, res, next) => {
       message: "Template file not found",
     });
   }
+});
+
+app.get("/", (_: Request, res: Response) => {
+  res.send("Hello World!");
 });
 
 const PORT = process.env.PORT || 3200;
