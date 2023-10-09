@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Management Page</title>
+    <title>Bishop's Method</title>
     <style>
       body {
         background-color: #111; /* Dark background color */
@@ -21,8 +21,10 @@
         padding: 20px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         text-align: center;
-        max-width: 400px;
+        /* Increase the max-width to make it wider */
+        max-width: 1000px; /* You can adjust this value as needed */
       }
+
       h1 {
         color: #333; /* Dark heading color */
         font-size: 24px;
@@ -66,16 +68,20 @@
   </head>
   <body>
     <div class="container">
-      <h1>Factor of safety - Simplified Bishop Method</h1>
-      <p>This page allows you to download and upload files.</p>
+      <h1>Factor of Safety - Simplified Bishop Method</h1>
+      <p>
+        <strong>Instructions for use</strong>: Click on download file to dowload the excel form.
+        Fill in the values per slice and upload the populated file by clicking upoad file
+      </p>
+      <input type="file" id="file-input" style="display: none" />
       <div class="button-container">
-        <button id="button1">Download File</button>
-        <button id="button2">Upload File</button>
+        <button id="download-button">Download File</button>
+        <button id="upload-button">Upload File</button>
       </div>
       <p id="instructions">Click one of the buttons below:</p>
       <div id="result-box">Result: <span id="result">-</span></div>
     </div>
-    <script>
+    <script src="./index.js">
       // ... (JavaScript code remains the same as in the previous response)
     </script>
   </body>

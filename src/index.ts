@@ -40,7 +40,7 @@ app.post("/api/v1/solve", upload.single("file"), async (req: Request, res: Respo
   let determinaion = "";
   if (FOS < 1) determinaion = "Unstable";
   else determinaion = "Stable";
-  res.send({ FactorOfSafety: FOS, Inference: determinaion });
+  res.send({ FactorOfSafety: FOS.toFixed(4), Inference: determinaion });
 });
 
 app.get("/api/v1/download-template", (_, res: Response) => {
