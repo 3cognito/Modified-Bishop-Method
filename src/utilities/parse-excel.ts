@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "fs";
 import xlsx from "xlsx";
 
 export async function convertToJSON(path: string) {

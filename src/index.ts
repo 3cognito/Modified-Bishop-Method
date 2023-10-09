@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import multer from "multer";
 import { Slice } from "./slice";
-import fs from "node:fs";
+import fs from "fs";
 dotenv.config();
 
 const upload = multer({ dest: "uploads/" });
