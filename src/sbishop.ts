@@ -13,6 +13,7 @@ export function checkConvergence(
   currentIteration: number = 0 // Default current iteration to 0
 ): number {
   // If the maximum number of iterations is reached without convergence, return the current FoS.
+
   if (currentIteration >= maxIterations) return initialGuessFOS;
 
   const individualFactorsOfSafety = slices.map((slice) => {

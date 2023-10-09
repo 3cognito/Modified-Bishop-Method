@@ -4,6 +4,8 @@ import { checkConvergence } from "./sbishop";
 import dotenv from "dotenv";
 import cors from "cors";
 import multer from "multer";
+import { Slice } from "./slice";
+import fs from "node:fs";
 dotenv.config();
 
 const upload = multer({ dest: "uploads/" });
@@ -22,7 +24,7 @@ app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
       message: "No file uploaded",
     });
   }
-  //Check if file is an xls or xlsx file
+
   if (
     file.mimetype !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
     file.mimetype !== "application/vnd.ms-excel"
@@ -32,15 +34,37 @@ app.post("/api/v1/solve", upload.single("file"), async (req, res, next) => {
       message: "Invalid file type",
     });
   }
-  const data = await convertToJSON(file.path);
-  console.log(data);
-  //Check headers of file to ensure it is a valid template
-  //Check if file has the required headers
-  res.send("seen");
+
+  const data = (await convertToJSON(file.path)) as Slice[];
+
+  //Validate input data
+  const FOS = checkConvergence(data, 1.5, 0.01, 10000);
+  let determinaion = "";
+  if (FOS < 1) determinaion = "Unstable";
+  else determinaion = "Stable";
+  res.send({ FactorOfSafety: FOS, Inference: determinaion });
 });
 
 app.get("/api/v1/download-template", (req, res, next) => {
-  //Set headers to trigger download
+  const path = "./src/template.xlsx";
+
+  if (fs.existsSync(path)) {
+    res.setHeader("Content-Disposition", 'attachment; filename="template.xlsx"');
+
+    // Set the Content-Type header to specify the XLSX format
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    const fileStream = fs.createReadStream(path);
+    fileStream.pipe(res);
+  } else {
+    res.status(500).json({
+      status: "error",
+      message: "Template file not found",
+    });
+  }
 });
 
 const PORT = process.env.PORT || 3200;
