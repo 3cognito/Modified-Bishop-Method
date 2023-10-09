@@ -19,9 +19,9 @@ export function checkConvergence(
   const individualFactorsOfSafety = slices.map((slice) => {
     return calculateNextFactorOfSafetyPerSlice(slice, initialGuessFOS);
   });
-  console.log(individualFactorsOfSafety);
+
   const { topSum, bottomSum } = calculateAverage(individualFactorsOfSafety);
-  console.log(topSum, bottomSum);
+
   const nextFOS = topSum / bottomSum;
 
   // Convergence criteria met, return the converged FoS
@@ -65,7 +65,6 @@ export function calculateNextFactorOfSafetyPerSlice(slice: Slice, currentFactorO
 
   const weightTimesSineOfInclination =
     slice.weight * trigInDegrees(slice.inclination, TrigFunction.Sine);
-
   let top =
     (cohesionTimesWidth +
       weightMinusPorePressureCoefficientTimesWidth * tanOfInternalFrictionAngle) *
