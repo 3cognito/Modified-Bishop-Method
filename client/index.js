@@ -39,10 +39,6 @@ fileInput.addEventListener("change", () => {
   // Replace 'your-upload-api-url' with the actual URL for uploading the file
   fetch("https://modified-bishop-method-production.up.railway.app/api/v1/solve", {
     method: "POST",
-    // Set appropriate headers
-    // Note: You may need to adjust headers based on your server's requirements
-    // For file uploads, 'Content-Type' should not be 'multipart/form-data'
-    // Let the browser handle it automatically
     body: formData, // Send the FormData object
   })
     .then((response) => {
