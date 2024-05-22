@@ -3,6 +3,33 @@ import pandas as pd
 import os
 import math
 from enum import Enum, auto
+from typing import Any, Hashable, List
+
+
+def convert_to_slice(data: List[dict[Hashable, Any]]):
+    """
+    Convert a list of dictionaries to a list of Slice objects.
+
+    :param data: List of dictionaries where each dictionary contains the attributes of a Slice.
+    :return: List of Slice objects.
+    """
+
+    from sbishop import Slice
+    
+    slices = [
+    Slice(
+        name=d['name'],
+        width=d['width'],
+        weight=d['weight'],
+        internal_friction_angle=d['internalFrictionAngle'],
+        inclination=d['inclination'],
+        pore_pressure_coefficient=d.get('porePressureCoefficient', None),
+        cohesion=d.get('cohesion', None)
+    )
+    for d in data
+            ]
+
+    return slices
 
 def calculate_average(numbers):
     """
@@ -32,7 +59,7 @@ def calculate_average(numbers):
 
 
 
-async def convert_to_json(path: str):
+async def convert_to_json(path: str) -> List[dict[Hashable, Any]]:
     """
     Convert an Excel file to JSON format and delete the original file.
 
@@ -42,8 +69,8 @@ async def convert_to_json(path: str):
     data =  parse_excel(path)
     
     os.remove(path)
-    
     return data
+
 
 def parse_excel(path: str):
     """
@@ -52,6 +79,9 @@ def parse_excel(path: str):
     :param path: The path to the Excel file.
     :return: The data from the Excel sheet in JSON format.
     """
+    if not os.path.exists(path):        
+        raise FileNotFoundError(f"File not found: {path}")
+
     df = pd.read_excel(path, sheet_name=0)
 
     json_data = df.to_dict(orient='records')
@@ -68,7 +98,8 @@ class TrigFunction(Enum):
     COSINE = auto()
     TANGENT = auto()
 
-# Function to calculate trigonometric functions in degrees
+
+
 def trig_in_degrees(degrees: float, trig_function: TrigFunction) -> float:
     radians = degrees_to_radians(degrees)
     

@@ -1,6 +1,4 @@
-import math
 from typing import List, Optional, Tuple
-from enum import Enum, auto
 from utils import calculate_average, trig_in_degrees, TrigFunction
 
 
