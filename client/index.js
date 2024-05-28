@@ -4,7 +4,7 @@ const uploadButton = document.getElementById("upload-button");
 
 // Add a click event listener to the download button
 downloadButton.addEventListener("click", () => {
-  fetch("https://modified-bishop-method-production.up.railway.app/api/v1/download-template")
+  fetch("https://bishop-2i7r.onrender.com/api/v1/download-template")
     .then((response) => response.blob())
     .then((blob) => {
       const url = window.URL.createObjectURL(blob);
@@ -37,7 +37,7 @@ fileInput.addEventListener("change", () => {
   formData.append("file", fileInput.files[0]);
 
   // Replace 'your-upload-api-url' with the actual URL for uploading the file
-  fetch("https://modified-bishop-method-production.up.railway.app/api/v1/solve", {
+  fetch("https://bishop-2i7r.onrender.com/api/v1/solve", {
     method: "POST",
     body: formData, // Send the FormData object
   })
